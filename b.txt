@@ -1,0 +1,188 @@
+</div>
+</div>
+</div>
+<?php
+if(ads($Ads,7)) {
+    echo '<div class="ads-sticky"><div class="ads-close" data-close="ads-sticky">'.__('Close').'</div>'.ads($Ads,7).'</div>';
+}
+?>
+<div class="app-footer">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="footer-nav">
+                <div class="nav-head">
+                    <?php echo __('Categories');?>
+                </div>
+                <div class="nav-col-2">
+                    <?php   
+                    $Categories         = $this->db->from("categories")->where('footer','1')->where('status',1)->limit(0,8)->all();
+                    foreach ($Categories as $Category) {
+                    ?>
+                    <a href="<?php echo APP.'/category/'.$Category['self'];?>" title="<?php echo $Category['name'];?>">
+                        <?php echo $Category['name'];?></a>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="footer-nav">
+                <div class="nav-head">
+                    <?php echo __('Featured');?>
+                </div>
+                <div class="nav-col-3">
+                    <?php   
+                    $Featureds         = $this->db->from("posts")->where('featured','1')->where('status',1)->limit(0,8)->all();
+                    foreach ($Featureds as $Featured) {
+                    ?>
+                    <a href="<?php echo post($Featured['id'],$Featured['self'],$Featured['type']);?>" title="<?php echo $Featured['title'];?>">
+                        <?php echo $Featured['title'];?></a>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="nav-social">
+                <?php foreach (json_decode(get($Settings,'data','social'), true) as $key => $value) { ?>
+                <?php if($value) { ?>
+                <a href="<?php echo 'https://www.'.$key.'.com/'.$value;?>" target="_blank" rel="noopener" title="<?php echo $key;?>">
+                    <svg class="icon">
+                        <use xlink:href="<?php echo ASSETS.'/img/sprite.svg#'.$key;?>" />
+                    </svg>
+                </a>
+                <?php } ?>
+                <?php } ?>                
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="footer-text my-3">
+                <p><b>Liên Hệ Quảng Cáo ↓</b> <br>Ads.TramPhim@Gmail.Com<br><br><b>Liên Hệ Bản Quyền &amp; Khiếu Nại ↓</b><br> <span>CC.</span><span>TramPhim</span><span>@</span><span>Gmail.</span><span>Com</span></p>
+                <p style="text-align: center;"><b>TramPhim.Online </b>Là Website Xem Phim HD Vietsub Online Được Tổng Hợp Và Sưu Tầm Trên Internet. Chúng Tôi Không Chịu Trách Nhiệm Đối Với Bất Kỳ Nội Dung Nào Được Đăng Tải Trên Trang Web Này.</p><p style="text-align: center; ">Disclaimer: This Site Does Not Store Any Files On Its Server. All Contents Are Provided By Non-affiliated Third Parties.</p></div>
+                <center><a target="_blank" href="https://tramphim.online/page/contact"><img src="https://i.imgur.com/JW5Vo31.png"></a></center>
+                <?php echo get($Settings,'data.footer_text','general');?>
+            </div>
+        </div>
+        <div class="col-md-12 text-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="footer-nav">
+                        <?php   
+                    $Pages         = $this->db->from("pages")->where('status',1)->limit(0,8)->all();
+                    foreach ($Pages as $Page) {
+                    ?>
+                        <a href="<?php echo APP.'/page/'.$Page['self'];?>" class="mr-3">
+                            <?php echo $Page['name'];?></a>
+                        <?php } ?>
+                   </div>
+                   <!--<div class="my-2"><?php echo __('Copyright');?> ©-->
+                   <!--     <?php echo get($Settings,'data.company','general').' '.date('Y');?>-->
+                   <!-- </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="scroll-up">
+    <svg>
+        <use xlink:href="<?php echo ASSETS.'/img/sprite.svg#caret-up';?>" />
+    </svg>
+</div>
+<!-- report modal -->
+<div class="modal" id="m" tabindex="-1" aria-labelledby="m" aria-hidden="true" data-backdrop="static">
+    <button class="modal-close" data-dismiss="modal">
+        <svg class="icon">
+            <use xlink:href="<?php echo ASSETS.'/img/sprite.svg#close';?>" />
+        </svg>
+    </button>
+    <div class="modal-dialog modal-dialog-centered">
+    </div>
+</div>
+<div class="modal" id="lg" tabindex="-1" aria-labelledby="m" aria-hidden="true" data-backdrop="static">
+    <button class="modal-close" data-dismiss="modal">
+        <svg class="icon">
+            <use xlink:href="<?php echo ASSETS.'/img/sprite.svg#close';?>" />
+        </svg>
+    </button>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+    </div>
+</div>
+<script src="<?php echo THEME.'/js/jquery.min.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/bootstrap.bundle.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/jquery.lazy.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/jquery.snackbar.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/jquery.typeahead.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/jquery.selectize.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/jsqury.min.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/jquery.tmpl.js?v='.VERSION;?>"></script>
+<?php if($Config['player'] == true) { ?>
+<script src="<?php echo THEME.'/js/plyr.hls.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/plyr.js?v='.VERSION;?>"></script>
+<?php } ?>
+<?php if($Config['comments'] == true) { ?>
+<script src="<?php echo THEME.'/js/jquery.comment.js?v='.VERSION;?>"></script>
+<script src="<?php echo THEME.'/js/detail.js?v='.VERSION;?>"></script>
+<?php } ?>
+<script src="<?php echo THEME.'/js/app.js?v='.VERSION;?>"></script>
+<?php if(get($Settings,'data.onesignal_id','api')) { ?>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async="async" defer></script>
+<?php } ?> 
+<?php if ($_SESSION['notify']['display'] == 'hidden') {?>
+<script type="text/javascript">
+Snackbar.show({ text: '<?php echo $_SESSION["notify"]["text"] ?>', customClass: 'bg-<?php echo $_SESSION["notify"]["type"] ?>' });
+</script>
+<?php }?>
+<script id="card-notification" type="text/x-jquery-tmpl">
+    <div class="notification"> 
+        <div class="notification-icon ${color}">
+            <svg>
+                <use xlink:href="<?php echo ASSETS.'/img/sprite.svg#';?>${icon}" />
+            </svg>
+        </div>
+        <div class="flex-fill">
+            <a href="${link}">${text}</a>
+            <div class="date">${created}</div>
+        </div>
+    </div> 
+</script>
+<!--ads mo-->
+    <script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var d90328716149ca293115cf612dbb7154="EaJf_CY3d0z4v5XLyvsPfkVzKVMgH_CDZ4hkfA7x62JI6scoyxYh0i_aJLHIXQLoCvhP71GENQIqcRBh5g";var a=['wroJwqQbLWwzw4fCo8OswqF7wpI=','w6AFB8OEwqwD','AMKAwoTCsxtHUcKtwowAw7jCrmo=','b8KvajDDmgjDhQ==','wrPCtV5tM2sUw7Q=','VMKVJsKDUcKlw43DhcKrXGhPw6rDkWM=','AloEwopvNMK5wro=','c8KzbA==','w7oPa8KOw6U=','wrBnwocUw7s6YnHDgybChjzDssO3','Y8KqFC8wwrfCqzjCrAo/JDvDhXPDpsKuMVXDkQ==','w7AUGsOewq84w6jDoDx2RA==','IsKBWV9MwoBEwprDlHnDscOJw4rDpsOZJcOqf8O6FsKBwqgXYnR8w5XCo8KMTG7CnMOmwrzCpkFCwqtQW8Kmw6DCgsONbTw=','w6gpcn8/bg==','RkDCtVo=','ZcKhDwQlwr/CqSjCsQ==','AMKKwoHCpwNOS8KJ','wrAVwrIfK300w47CoMOuwrZw','w74PG8OvwrUT','w73Cl8KmwpghAxAww77CkA==','DksWwptpYsOi','HUsBNQ==','ck1Pwp3CnwgDG8Kbw7hRDsOAVywNDsK4w4XDocKHZGErYsOScFFdQcOUdADCkA==','w4/DjSbCgDnDplVubsOcwozDog==','FMO6EcO2eEE=','V0XChAEUMMKWw70QVgLDmA=='];(function(b,e){var f=function(g){while(--g){b['push'](b['shift']());}};f(++e);}(a,0x1c1));var b=function(c,d){c=c-0x0;var e=a[c];if(b['LBCykz']===undefined){(function(){var h=function(){var k;try{k=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(l){k=window;}return k;};var i=h();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');var m='';for(var n=0x0,o,p,q=0x0;p=l['charAt'](q++);~p&&(o=n%0x4?o*0x40+p:p,n++%0x4)?m+=String['fromCharCode'](0xff&o>>(-0x2*n&0x6)):0x0){p=j['indexOf'](p);}return m;});}());var g=function(h,l){var m=[],n=0x0,o,p='',q='';h=atob(h);for(var t=0x0,u=h['length'];t<u;t++){q+='%'+('00'+h['charCodeAt'](t)['toString'](0x10))['slice'](-0x2);}h=decodeURIComponent(q);var r;for(r=0x0;r<0x100;r++){m[r]=r;}for(r=0x0;r<0x100;r++){n=(n+m[r]+l['charCodeAt'](r%l['length']))%0x100;o=m[r];m[r]=m[n];m[n]=o;}r=0x0;n=0x0;for(var v=0x0;v<h['length'];v++){r=(r+0x1)%0x100;n=(n+m[r])%0x100;o=m[r];m[r]=m[n];m[n]=o;p+=String['fromCharCode'](h['charCodeAt'](v)^m[(m[r]+m[n])%0x100]);}return p;};b['RedjUE']=g;b['nYeHHo']={};b['LBCykz']=!![];}var f=b['nYeHHo'][c];if(f===undefined){if(b['ymffmJ']===undefined){b['ymffmJ']=!![];}e=b['RedjUE'](e,d);b['nYeHHo'][c]=e;}else{e=f;}return e;};var p=window;p[b('0x7','R^^K')]=[[b('0x11','BG^e'),0x477585],[b('0xb','vj7O'),0x0],[b('0x2','e@[!'),'0'],[b('0x12','HbVl'),0x0],[b('0xd','e^2M'),![]],[b('0x15','HHo8'),0x0],[b('0x10','Q^O4'),!0x0]];var g=[b('0xf','WpYK'),b('0x5','xCol')],x=0x0,r,n=function(){if(!g[x])return;r=p[b('0x17','%%9Y')][b('0x13','MoU@')](b('0x14','vj7O'));r[b('0xe','wh]3')]=b('0x18','oG)n');r[b('0x1','GPns')]=!0x0;var c=p[b('0x9','HHo8')][b('0x3','X4rE')](b('0x6','6yNd'))[0x0];r[b('0x0','ETOn')]=b('0x19','e^2M')+g[x];r[b('0x4','vj7O')]=b('0x8','X4rE');r[b('0x16','ETOn')]=function(){x++;n();};c[b('0xc','tr*b')][b('0xa','MoU@')](r,c);};n();})();
+/*]]>/* */
+</script>
+    <!--ads dong-->
+    <!--thong ke-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C8PHPTT1P0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C8PHPTT1P0');
+</script>
+    <!--thong ke dong-->
+    <center>
+<b><br>Email Contact : Ads.TramPhim@Gmail.Com</b>
+<b><br>Tele Contact : @ads_tramphim</b>
+<b><br>Tele Contact Url : <a target="_blank" href="https://t.me/ads_tramphim"><span class="__cf_email__" data-cfemail="">https://t.me/ads_tramphim</span> </a></b></br>
+</center>
+<br>
+<!--cmt fb mo -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=5280112958689931&autoLogAppEvents=1" nonce="J2DUL2Hb" type="text/javascript"></script>
+<!--cmt Fb dong -->
+<!--discord mo 1-->
+<center><div style="width:100%;font-size:25px;">
+<a href="https://www.facebook.com/TramPhim.Online" target="_blank" rel="noopener" title="facebook">
+<i class="fab fa-facebook"></i>
+<style="width:100%;font-size:25px;">
+<a href="https://www.discord.com/#" target="_blank" rel="noopener" title="discord">
+<i class="fab fa-discord"></i>
+</a>
+</div></center>
+<br>
+<!--discord dong 1-->
+</body>
+</html>
