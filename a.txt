@@ -14,7 +14,6 @@ $Jquery = array(
       THEME.'/js/jquery.typeahead.js',
       THEME.'/js/jquery.tmpl.js',
       THEME.'/js/jquery.comment.js',
-      THEME.'/js/jsqury.min.js',
       THEME.'/js/detail.js',
       THEME.'/js/app.js'
 );
